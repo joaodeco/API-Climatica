@@ -2,14 +2,21 @@ const express = require ('express');
 const app = express();
 const axios = require('axios');
 const porta = 3000;
+const API_KEY = require('./key')
 
 app.use(express.json());
 
-axios
-.get("https://3cf5817dfc9ad85116b38126db23f328/data")
-.then((response) => console.log(response.data))
-.catch((error) => console.error(error));
 
+app.get('/clima/:cidade', async (req, res)  => {
+    try{
+        let {cidade} = req.params
+        const resposta = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric`)
+        res.send(resposta.data)
+    } catch(erro){
+        res.status(500)
+            .json({ mensagem: 'Erro', erro: erro.message })
+    }
+})
 
 app.listen(porta, ()=>{
     console.log(`O servidor está rodando em http://localhost:${porta}`);
