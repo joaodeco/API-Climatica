@@ -11,10 +11,21 @@ app.get('/clima/:cidade', async (req, res)  => {
     try{
         let {cidade} = req.params
         const resposta = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric`)
-        res.send(resposta.data)
+        res.send(resposta.data).status(200)
     } catch(erro){
         res.status(500)
-            .json({ mensagem: 'Erro', erro: erro.message })
+            .json({ mensagem: 'Erro'}).status(404)
+    }
+})
+
+app.get('/piada', async (req, res) => {
+    try{
+    let resposta = axios.get(``)
+    const piada = resposta.data
+    res.json(piada)
+    } catch (erro){
+        res.status(500)
+            .json({ mensagem: 'Erro'}).status(404)
     }
 })
 
