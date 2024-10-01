@@ -18,17 +18,6 @@ app.get('/clima/:cidade', async (req, res)  => {
     }
 })
 
-app.get('/piada', async (req, res) => {
-    try{
-    let resposta = axios.get(``)
-    const piada = resposta.data
-    res.json(piada)
-    } catch (erro){
-        res.status(500)
-            .json({ mensagem: 'Erro'}).status(404)
-    }
-})
-
 app.listen(porta, ()=>{
     console.log(`O servidor está rodando em http://localhost:${porta}`);
 });
