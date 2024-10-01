@@ -3,9 +3,16 @@ const app = express();
 const axios = require('axios');
 const porta = 3000;
 const API_KEY = require('./key')
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
 
 app.use(express.json());
 
+dotenv.config();
+connectDB();
+
+app.use('/api', userRoutes);
 
 app.get('/clima/:cidade', async (req, res)  => {
     try{
